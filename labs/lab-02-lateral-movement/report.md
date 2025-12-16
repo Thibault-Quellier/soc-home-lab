@@ -245,3 +245,135 @@ This lab emphasizes several important SOC concepts:
 - SIEM configuration must be validated to ensure complete coverage.
 
 Overall, this exercise reflects a realistic SOC workflow involving log analysis, detection gap identification, and remediation, and reinforces the importance of careful monitoring of authentication activity in Active Directory environments.
+
+ 8. Evidence References
+
+This section documents all evidence collected during **Lab 02 – Lateral Movement Detection**.
+Each artifact supports a specific observation made during the investigation and confirms
+visibility at both the **Domain Controller (DC01)** and **SIEM (Wazuh)** levels.
+
+All evidence files are stored in:
+
+labs/lab-02-lateral-movement/evidence/
+
+ Evidence 1 — DC01 NTLM Credential Validation (Event ID 4776)
+
+File:
+4776_DC01_NTLM_Details.jpg
+
+Description:
+Windows Security Event ID 4776 recorded on DC01, showing a credential validation attempt.
+
+Visible elements:
+- Event ID: 4776
+- Authentication Package: MICROSOFT_AUTHENTICATION_PACKAGE_V1_0
+- Target user: user-low
+- Source workstation: KALI
+- Status code: 0xC000006A
+
+Why it matters:
+This event confirms that the Domain Controller processed an authentication attempt
+originating from the attacker machine and rejected it due to invalid credentials.
+
+ Evidence 2 — NTLM Validation Without Explicit NTLM Label
+
+File:
+4776_DC01_NTLM_Details_2.jpg
+
+Description:
+Additional Event ID 4776 log showing credential validation activity on DC01.
+
+Visible elements:
+- Event ID: 4776
+- Authentication package information
+- User account: user-low
+- Source workstation: KALI
+
+Why it matters:
+This evidence demonstrates that NTLM authentication is identified through
+Event ID 4776 and authentication package fields, even when the "NTLM" string
+is not explicitly displayed in the Event Viewer UI.
+
+ Evidence 3 — Wazuh Security Events Overview
+
+File:
+Wazuh_4776_Overview.jpg
+
+Description:
+Wazuh dashboard overview displaying Windows security audit failures collected from DC01.
+
+Visible elements:
+- Windows audit failure alerts
+- Rule group: windows_security
+- Alert level: 5
+
+Why it matters:
+This view confirms that authentication failures from the Domain Controller
+are successfully ingested and categorized by the SIEM.
+
+ Evidence 4 — Wazuh Filtered View (Event ID 4776)
+
+File:
+Wazuh_4776_Overview2.jpg
+
+Description:
+Wazuh event view filtered specifically on Event ID 4776.
+
+Visible elements:
+- Event ID filter: 4776
+- Agent: DC01
+- Total events: 1
+
+Why it matters:
+This evidence confirms that NTLM credential validation events from DC01
+are indexed and searchable within Wazuh.
+
+ Evidence 5 — Wazuh Normalized Event Details (Event ID 4776)
+
+File:
+Wazuh_4776_Event_Details.jpg
+
+Description:
+Detailed Wazuh event showing normalized fields extracted from the original Windows log.
+
+Visible elements:
+- Agent name: DC01
+- Target user: user-low
+- Source workstation: KALI
+- Event ID: 4776
+- Status code: 0xC000006A
+- Original Windows message
+
+Why it matters:
+This evidence demonstrates that Wazuh correctly parses and normalizes
+NTLM authentication events, enabling structured SOC analysis.
+
+ Evidence 6 — DC01 Security Log ACL Configuration (After Fix)
+
+File:
+DC01_Security_Log_ACL_After.jpg
+
+Description:
+PowerShell output showing updated ACL permissions on the Security event log
+and a restart of the Wazuh service.
+
+Visible elements:
+- Updated channelAccess configuration
+- wevtutil command applied to the Security log
+- Wazuh service restarted and running
+
+Why it matters:
+This evidence explains the remediation step that allowed Event ID 4776
+to become visible in Wazuh, validating the troubleshooting process.
+
+ Evidence Summary
+
+The evidence collected demonstrates a complete detection chain:
+
+- Authentication attempts originating from KALI
+- Credential validation performed by DC01 (Event ID 4776)
+- Log collection and normalization by Wazuh
+- Successful SIEM visibility after correcting log permissions
+
+This evidence set supports the findings presented in this report and
+confirms effective monitoring of NTLM-based lateral movement activity.
