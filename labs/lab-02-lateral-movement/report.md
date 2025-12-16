@@ -377,3 +377,5 @@ The evidence collected demonstrates a complete detection chain:
 
 This evidence set supports the findings presented in this report and
 confirms effective monitoring of NTLM-based lateral movement activity.
+
+NB: sometimes you can see 1 hours of difference between the timestamp, it's normal, this is due to the time setup in France (+1 hour during winter, -1 during summer)
