@@ -24,6 +24,29 @@ Simulate a brute-force attack against a domain account and observe how authentic
 **Evidence dataset:**  
  [`evidence/`](./labs/lab-01-bruteforce-ad/evidence)
 
+ ## Lab 02 — Lateral Movement Detection (SMB / NTLM)
+
+**Objective:**  
+Analyze and detect NTLM-based lateral movement attempts in an Active Directory environment using Domain Controller logs and SIEM correlation.
+
+**Key points:**
+- SMB authentication attempt from an attacker machine
+- NTLM credential validation on the Domain Controller (Event ID 4776)
+- Identification of a SIEM visibility gap
+- Remediation of Windows Security log access (wevtutil)
+- Successful ingestion and normalization in Wazuh
+
+**Skills demonstrated:**
+- Windows authentication log analysis (NTLM)
+- Active Directory Domain Controller monitoring
+- SIEM troubleshooting and log ingestion validation
+- SOC-style investigation and documentation
+
+ **Main Report:**  
+`labs/lab-02-lateral-movement/report.md`
+**Evidence dataset:**  
+`labs/lab-02-lateral-movement/evidence/`
+
 ---
 
 ##  Environment Overview
