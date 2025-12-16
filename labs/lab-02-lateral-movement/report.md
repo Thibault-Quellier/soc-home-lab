@@ -86,17 +86,162 @@ Each capture highlights relevant timestamps, usernames, source systems, and auth
 
 
  5. Log Analysis
- 5.1 Domain Controller Analysis (DC01)
- 5.2 Endpoint Perspective (WIN-CLIENT)
- 5.3 SIEM Visibility (Wazuh)
 
- 6. Detection Gaps & Remediation
- 6.1 Identified Visibility Gap
- 6.2 Root Cause Analysis
- 6.3 Remediation Actions
+This section analyzes the authentication events generated during the SMB-based lateral movement attempt performed from the attacker machine (KALI) against the Active Directory environment.
 
- 7. MITRE ATT&CK Mapping
+The objective is to demonstrate:
+- which authentication logs are generated on the Domain Controller (DC01),
+- which logs are (or are not) generated on the endpoint (WIN-CLIENT),
+- and how these events are collected and correlated by Wazuh.
 
- 8. Conclusion
 
- 9. Appendix — Evidence References
+ 5.1 Authentication Behavior Overview
+
+The attacker machine (KALI) attempted to access an SMB resource using the low-privilege domain account `user-low`.
+
+The attempt resulted in:
+- successful network connectivity (ICMP and TCP/445),
+- an SMB authentication attempt,
+- access denial due to insufficient privileges (`NT_STATUS_ACCESS_DENIED`).
+
+Although access was denied, credential validation still occurred at the domain level.
+
+ 5.2 Domain Controller Log Analysis (DC01)
+
+During the attack timeframe, DC01 generated the following key event:
+
+#### Event ID 4776 — NTLM Authentication
+
+This event indicates that the Domain Controller attempted to validate the credentials provided during the SMB authentication attempt.
+
+Observed fields:
+- Account Name: `user-low`
+- Source Workstation: `KALI`
+- Authentication Package: NTLM
+
+This event confirms:
+- that the credentials were processed by the Domain Controller,
+- that the authentication originated from the attacker machine,
+- and that this activity represents a potential lateral movement attempt.
+
+ 5.3 Endpoint Log Analysis (WIN-CLIENT)
+
+On the target endpoint WIN-CLIENT, the following observations were made:
+
+- No Event ID 4624 (Type 3 — Network Logon) was generated.
+- No local authentication session was established.
+
+This behavior is expected because:
+- the SMB authentication failed before any resource access,
+- credential validation was handled directly by DC01,
+- and the endpoint did not create a logon session.
+
+This highlights an important SOC concept:
+"lateral movement attempts may be visible on the Domain Controller but not on the target endpoint."
+
+
+ 5.4 Wazuh Log Visibility
+
+Initially, Event ID 4776 was visible on DC01 but not ingested by Wazuh.
+
+After adjusting Windows Security log configuration and restarting the Wazuh agent:
+- Event ID 4776 became visible in Wazuh
+- the event was normalized correctly
+- the attacker workstation `KALI` and target account `user-low` were clearly identified.
+
+This confirms that Wazuh is capable of detecting NTLM-based lateral movement attempts when log collection is properly configured.
+
+ 5.5 Analysis Summary
+
+The log analysis shows:
+
+- Successful NTLM authentication validation attempts logged on DC01,
+- Absence of corresponding logon events on the endpoint,
+- Correct SIEM ingestion after configuration adjustment.
+
+This scenario reflects a realistic SOC challenge, where:
+- authentication attempts may not generate endpoint logs,
+- Domain Controller logs become the primary detection source,
+- and SIEM configuration directly impacts detection capability.
+ 
+
+ 6. MITRE ATT&CK Mapping & Detection Logic
+
+This section maps the observed authentication activity to the MITRE ATT&CK framework and explains the detection logic applied across the Domain Controller and SIEM layers.
+
+The objective is to demonstrate how an SMB-based lateral movement attempt can be identified through authentication artifacts rather than successful access.
+
+ 6.1 Mapped MITRE ATT&CK Techniques
+
+The activity observed during this lab aligns with the following MITRE ATT&CK technique:
+
+| Technique ID | Name | Description |
+|--------------|------|-------------|
+| T1021.002 | Remote Services: SMB/Windows Admin Shares | Adversaries attempt to move laterally by accessing SMB shares on remote systems using valid or guessed credentials. 
+
+This technique applies even when access is denied, as credential validation still occurs.
+
+ 6.2 Detection Logic — Domain Controller Layer
+
+The primary detection signal for this lab is **Event ID 4776 (NTLM authentication)** on DC01.
+
+Detection indicators:
+- Repeated or suspicious NTLM authentication attempts
+- Low-privilege domain account (`user-low`)
+- Source workstation identified as `KALI`
+- Authentication attempts outside normal administrative behavior
+
+Although the authentication failed, the presence of these indicators is sufficient to flag potential lateral movement.
+
+ 6.3 Detection Logic — Endpoint Layer
+
+No corresponding "Event ID 4624 (Type 3 — Network Logon)" was generated on WIN-CLIENT.
+
+This is a critical detection insight:
+
+- Lateral movement attempts may fail before resource access
+- Endpoints may generate no authentication logs
+- Relying solely on endpoint logs can lead to missed detections
+
+SOC analysts must therefore prioritize Domain Controller logs when investigating lateral movement.
+
+ 6.4 Detection Logic — SIEM Layer (Wazuh)
+
+Once Event ID 4776 was ingested by Wazuh, the SIEM provided:
+
+- Centralized visibility of NTLM authentication attempts
+- Normalized fields identifying:
+  - target user (`user-low`)
+  - source workstation (`KALI`)
+  - authentication method (NTLM)
+- A timeline correlating authentication attempts with attack activity
+
+This demonstrates the importance of:
+- collecting Domain Controller security logs
+- validating SIEM ingestion paths
+- and verifying detection coverage beyond endpoints
+
+ 6.5 Detection Summary
+
+The detection logic for this lab is based on:
+
+- "Authentication validation events", not successful access
+- "Domain-level visibility", not endpoint-only logs
+- "Contextual analysis", combining account, source host, and protocol
+
+This approach reflects real-world SOC detection strategies for lateral movement in Active Directory environments.
+
+ 7. Conclusion
+
+This lab demonstrated the detection and analysis of a failed lateral movement attempt within an Active Directory environment.
+
+Although the SMB authentication attempt did not result in successful access, the activity generated meaningful authentication artifacts at the Domain Controller level. Event ID 4776 provided clear evidence of NTLM credential validation originating from the attacker machine, highlighting the importance of domain-level visibility when investigating lateral movement.
+
+The investigation also revealed a SIEM visibility gap caused by restricted access to the Windows Security log on the Domain Controller. Identifying and remediating this issue reinforced a key SOC lesson: detection effectiveness depends not only on log generation, but also on proper log collection and ingestion by the SIEM.
+
+This lab emphasizes several important SOC concepts:
+- lateral movement attempts may fail yet still be detectable,
+- Domain Controller logs are critical for authentication-based detections,
+- SIEM configuration must be validated to ensure complete coverage.
+
+Overall, this exercise reflects a realistic SOC workflow involving log analysis, detection gap identification, and remediation, and reinforces the importance of careful monitoring of authentication activity in Active Directory environments.
