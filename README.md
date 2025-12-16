@@ -43,9 +43,10 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 - SOC-style investigation and documentation
 
  **Main Report:**  
-`labs/lab-02-lateral-movement/report.md`
+[`report.md`](./labs/lab-02-lateral-movement/report.md)
+
 **Evidence dataset:**  
-`labs/lab-02-lateral-movement/evidence/`
+[`evidence/`](./labs/lab-02-lateral-movement/evidence/)
 
 ---
 
