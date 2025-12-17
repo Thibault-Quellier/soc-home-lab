@@ -32,8 +32,8 @@ The environment allows observing authentication events as they propagate through
 
 | Component | Hostname | Role | Description |
 
-- Windows 11 Endpoint | WIN-CLIENT | Victim workstation | Generates 4624 / 4625 authentication events
-- Windows Server 2022 | DC01 | Domain Controller | Handles Kerberos (4768, 4771) and NTLM (4776) authentication 
+- Windows 10 Endpoint | WIN-CLIENT | Victim workstation | Generates 4624 / 4625 authentication events
+- Windows Server 2019 | DC01 | Domain Controller | Handles Kerberos (4768, 4771) and NTLM (4776) authentication 
 - Kali Linux | KALI | Attacker machine | Executes brute-force attempts against `user-low` 
 - Ubuntu Server | WAZUH-MANAGER | SIEM | Collects and normalizes Windows logs, triggers MITRE-based alerts
 
