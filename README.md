@@ -54,8 +54,8 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 
 | Component | Hostname | Role |
 |----------|----------|------|
-| Windows 11 Endpoint | WIN-CLIENT | Generates authentication logs (4624/4625) |
-| Windows Server 2022 | DC01 | Domain Controller (Kerberos & NTLM events) |
+| Windows 10 Endpoint | WIN-CLIENT | Generates authentication logs (4624/4625) |
+| Windows Server 2019 | DC01 | Domain Controller (Kerberos & NTLM events) |
 | Kali Linux | KALI | Attacker machine for brute-force attempts |
 | Ubuntu Server | WAZUH-MANAGER | SIEM collecting and correlating logs |
 
