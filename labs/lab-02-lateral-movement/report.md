@@ -25,8 +25,8 @@ The environment allows observation of authentication activity across endpoints, 
 
 | Component | Hostname | Role | Description |
 |---------|----------|------|-------------|
-| Windows 11 | WIN-CLIENT | Domain workstation | Generates outbound authentication activity 
-| Windows Server 2022 | DC01 | Domain Controller | Processes Kerberos and NTLM authentication 
+| Windows 10 | WIN-CLIENT | Domain workstation | Generates outbound authentication activity 
+| Windows Server 2019 | DC01 | Domain Controller | Processes Kerberos and NTLM authentication 
 | Kali Linux | KALI | Attacker machine | Initiates lateral movement attempts 
 | Ubuntu Server | WAZUH-MANAGER | SIEM | Centralized log collection and analysis 
 
