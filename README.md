@@ -81,6 +81,9 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 │ │ ├── report.md
 │ │ ├── evidence/
 │ │ └── notes.md (if needed for future use)
+| ├── lab-02-lateral-movement/
+| | ├── report.md
+│ │ ├── evidence/
 └── README.md
 
 
@@ -89,8 +92,7 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 ##  Future Work
 
 This repository will grow progressively with new SOC-oriented labs:
-
-- Lab 02: Lateral movement detection  
+  
 - Lab 03: Suspicious process execution  
 - Lab 04: Wazuh rule tuning  
 - Lab 05: Network-based detection scenarios  
