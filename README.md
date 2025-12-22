@@ -73,6 +73,28 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 
 ---
 
+### Lab 03 — Suspicious PowerShell Encoded Command Detection
+
+**Environment Overview**
+
+| Component        | Hostname        | Role                     | Description |
+|------------------|-----------------|--------------------------|-------------|
+| Windows Endpoint | WIN-CLIENT      | Monitored workstation    | Windows 10 endpoint where an encoded PowerShell command is executed and logged |
+| Domain Controller| DC01            | Active Directory         | Windows Server 2019 domain controller (not directly involved in this scenario) |
+| SIEM             | WAZUH-MANAGER   | Log collection & analysis| Centralized log collection, correlation, and alerting via Wazuh SIEM |
+
+**Project Goals**
+
+- Detect obfuscated PowerShell execution using encoded commands  
+- Validate endpoint visibility through PowerShell Script Block Logging and Sysmon  
+- Correlate endpoint telemetry at the SIEM level  
+- Map suspicious activity to MITRE ATT&CK techniques  
+- Demonstrate SOC-level analysis of suspicious scripting behavior  
+
+- [`report.md`](./labs/lab-03-suspicious-powershell/report.md)
+- [`evidence/`](./labs/lab-03-suspicious-powershell/evidence)
+
+
 ##  Repository Structure
 
 /
@@ -86,19 +108,17 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 │ │ ├── evidence/
 └── README.md
 
-
 ---
 
 ##  Future Work
 
-This repository will grow progressively with new SOC-oriented labs:
-  
-- Lab 03: Suspicious process execution  
+This repository will grow progressively with new SOC-oriented labs:  
+ 
 - Lab 04: Wazuh rule tuning  
 - Lab 05: Network-based detection scenarios  
 - Additional SIEM or EDR integrations
 
-Each lab will include a structured investigation report and annotated evidence.
+Each lab includes a structured investigation report and annotated evidence.
 
 ---
 
