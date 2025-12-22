@@ -106,6 +106,9 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 | ├── lab-02-lateral-movement/
 | | ├── report.md
 │ │ ├── evidence/
+| ├── lab-03-suspicious-powershell
+| | ├──report.md
+| | ├──evidence/
 └── README.md
 
 ---
