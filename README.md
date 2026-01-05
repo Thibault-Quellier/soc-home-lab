@@ -94,6 +94,29 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 - [`report.md`](./labs/lab-03-suspicious-powershell/report.md)
 - [`evidence/`](./labs/lab-03-suspicious-powershell/evidence)
 
+---
+
+## Lab 04 — Scheduled Task Persistence Detection
+
+**Environment Overview**
+
+| Component        | Hostname      | Role                     | Description |
+|------------------|---------------|--------------------------|-------------|
+| Windows Endpoint | WIN-CLIENT    | Monitored workstation    | Windows 10 endpoint where a scheduled task is created for persistence |
+| Domain Controller| DC01          | Active Directory         | Windows Server 2019 domain controller (not directly involved in this scenario) |
+| SIEM             | WAZUH-MANAGER | Log collection & analysis| Centralized log collection and analysis via Wazuh SIEM |
+
+**Project Goals**
+
+- Identify persistence through scheduled task creation  
+- Observe native Windows logging of task scheduler activity  
+- Validate process execution visibility using Windows Security logs and Sysmon  
+- Assess SIEM-level visibility and detection limitations  
+- Map persistence behavior to MITRE ATT&CK techniques  
+- Demonstrate realistic SOC analysis of task scheduler abuse  
+
+- [`report.md`](./labs/lab-04-scheduled-task-persistence/report.md)
+- [`evidence/`](./labs/lab-04-scheduled-task-persistence/evidence)
 
 ##  Repository Structure
 
@@ -107,17 +130,19 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 | | ├── report.md
 │ │ ├── evidence/
 | ├── lab-03-suspicious-powershell
-| | ├──report.md
-| | ├──evidence/
+| | ├── report.md
+| | ├── evidence/
+| ├── lab-04-suspicious-scheduled-task/
+| | ├── report.md
+| | ├── evidence/
 └── README.md
 
 ---
 
 ##  Future Work
 
-This repository will grow progressively with new SOC-oriented labs:  
- 
-- Lab 04: Wazuh rule tuning  
+This repository will grow progressively with new SOC-oriented labs:
+   
 - Lab 05: Network-based detection scenarios  
 - Additional SIEM or EDR integrations
 
