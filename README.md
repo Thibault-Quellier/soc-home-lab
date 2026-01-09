@@ -118,25 +118,6 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 - [`report.md`](./labs/lab-04-scheduled-task-persistence/report.md)
 - [`evidence/`](./labs/lab-04-scheduled-task-persistence/evidence)
 
-##  Repository Structure
-
-/
-├── labs/
-│ ├── lab-01-bruteforce-ad/
-│ │ ├── report.md
-│ │ ├── evidence/
-│ │ └── notes.md (if needed for future use)
-| ├── lab-02-lateral-movement/
-| | ├── report.md
-│ │ ├── evidence/
-| ├── lab-03-suspicious-powershell
-| | ├── report.md
-| | ├── evidence/
-| ├── lab-04-suspicious-scheduled-task/
-| | ├── report.md
-| | ├── evidence/
-└── README.md
-
 ---
 
 ### Lab 05 — Registry Run Key Persistence Detection
@@ -160,6 +141,30 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 
 - [`report.md`](./labs/lab-05-registry-run-persistence/report.md)
 - [`evidence/`](./labs/lab-05-registry-run-persistence/evidence)
+  
+---
+
+##  Repository Structure
+
+/
+├── labs/
+│ ├── lab-01-bruteforce-ad/
+│ │ ├── report.md
+│ │ ├── evidence/
+│ │ └── notes.md (if needed for future use)
+| ├── lab-02-lateral-movement/
+| | ├── report.md
+│ │ ├── evidence/
+| ├── lab-03-suspicious-powershell
+| | ├── report.md
+| | ├── evidence/
+| ├── lab-04-suspicious-scheduled-task/
+| | ├── report.md
+| | ├── evidence/
+| ├── lab-05-registry-run-persistence/
+| | ├── report.md
+| | ├── evidence/
+└── README.md
 
 ---
 
