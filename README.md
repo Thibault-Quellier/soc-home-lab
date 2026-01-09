@@ -170,9 +170,8 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 
 ##  Future Work
 
-This repository will grow progressively with new SOC-oriented labs:
-   
-- Lab 05: Network-based detection scenarios  
+This repository will grow progressively with new SOC-oriented labs:   
+  
 - Additional SIEM or EDR integrations
 
 Each lab includes a structured investigation report and annotated evidence.
