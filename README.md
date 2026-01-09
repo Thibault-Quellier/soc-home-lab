@@ -139,6 +139,30 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 
 ---
 
+### Lab 05 — Registry Run Key Persistence Detection
+
+**Environment Overview**
+
+| Component        | Hostname      | Role                     | Description |
+|------------------|---------------|--------------------------|-------------|
+| Windows Endpoint | WIN-CLIENT    | Monitored workstation    | Windows 10 endpoint where registry Run key persistence is created |
+| Domain Controller| DC01          | Active Directory         | Windows Server 2019 domain controller (not directly involved in this scenario) |
+| SIEM             | WAZUH-MANAGER | Log collection & analysis| Centralized log collection, correlation, and alerting via Wazuh SIEM |
+
+**Project Goals**
+
+- Detect user-level persistence through Windows Registry Run keys  
+- Validate endpoint visibility using Sysmon registry telemetry  
+- Assess SIEM visibility through PowerShell Script Block Logging  
+- Correlate endpoint activity at the SIEM level  
+- Map persistence behavior to MITRE ATT&CK techniques  
+- Demonstrate realistic SOC analysis of registry-based persistence  
+
+- [`report.md`](./labs/lab-05-registry-run-persistence/report.md)
+- [`evidence/`](./labs/lab-05-registry-run-persistence/evidence)
+
+---
+
 ##  Future Work
 
 This repository will grow progressively with new SOC-oriented labs:
