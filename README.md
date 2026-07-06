@@ -173,6 +173,13 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 This repository will grow progressively with new SOC-oriented labs:   
   
 - Additional SIEM or EDR integrations
+- Kerberoasting Detection
+- Silver Ticket Detection
+- Golden Ticket Detection
+- Pass-The-Hash Detection
+- Pass-The-Ticket Detection
+- Additional Linux Endpoint and Incident
+- Complex Attack scenarios
 
 Each lab includes a structured investigation report and annotated evidence.
 
