@@ -165,9 +165,9 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 - T1558.003 — Kerberoasting
 - TA0006 — Credential Access
 
-[Report](labs/lab-06-kerberoasting-detection/report.md)
+[`report.md`](labs/lab-06-kerberoasting-detection/report.md)
 
-[Evidence](labs/lab-06-kerberoasting-detection/evidence/)
+[`evidence/`](labs/lab-06-kerberoasting-detection/evidence/)
   
 ---
 
