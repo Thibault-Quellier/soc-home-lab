@@ -141,6 +141,33 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 
 - [`report.md`](./labs/lab-05-registry-run-persistence/report.md)
 - [`evidence/`](./labs/lab-05-registry-run-persistence/evidence)
+
+---
+
+### Lab 06 — Kerberoasting Detection
+
+| Component | Hostname | Role | Description |
+|------------|----------|------|-------------|
+| Workstation | WIN-CLIENT | Workstation | Windows 10 workstation requesting Kerberos service tickets |
+| Domain Controller | DC01 | Active Directory | Windows Server 2019 issuing Kerberos TGS tickets |
+| SIEM | WAZUH-MANAGER | Log collection & Analysis | Collected Kerberos security events and validated SIEM telemetry |
+
+**Project Goals**
+
+- Configure a dedicated Service Principal Name (SPN)
+- Generate Kerberos Service Ticket (TGS) requests
+- Validate Windows Security Event ID 4769
+- Verify Kerberos-related telemetry within Wazuh
+- Demonstrate SOC investigation methodology
+
+**Mapped MITRE ATT&CK Techniques**
+
+- T1558.003 — Kerberoasting
+- TA0006 — Credential Access
+
+[Report](labs/lab-06-kerberoasting-detection/report.md)
+
+[Evidence](labs/lab-06-kerberoasting-detection/evidence/)
   
 ---
 
@@ -164,23 +191,38 @@ Analyze and detect NTLM-based lateral movement attempts in an Active Directory e
 | ├── lab-05-registry-run-persistence/
 | | ├── report.md
 | | ├── evidence/
+| ├── lab-06-kerberoasting-detection/
+| | ├── report.md
+| | ├── evidence/
 └── README.md
 
 ---
 
 ##  Future Work
 
-This repository will grow progressively with new SOC-oriented labs:   
-  
-- Additional SIEM or EDR integrations
-- Kerberoasting Detection
+The repository will continue growing with new SOC-oriented detection labs.
+
+### Completed
+
+- ✅ Active Directory Brute Force Detection
+- ✅ Lateral Movement Detection (SMB / NTLM)
+- ✅ Suspicious PowerShell Encoded Command Detection
+- ✅ Scheduled Task Persistence Detection
+- ✅ Registry Run Key Persistence Detection
+- ✅ Kerberoasting Detection
+
+### Planned
+
 - Silver Ticket Detection
 - Golden Ticket Detection
-- Pass-The-Hash Detection
-- Pass-The-Ticket Detection
-- Additional Linux Endpoint and Incident
-- Complex Attack scenarios
-
+- Pass-the-Hash Detection
+- Pass-the-Ticket Detection
+- DCSync Detection
+- Active Directory Enumeration Detection
+- Linux Authentication Monitoring
+- Linux Privilege Escalation Detection
+- Firewall Log Analysis
+  
 Each lab includes a structured investigation report and annotated evidence.
 
 ---
