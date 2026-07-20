@@ -232,16 +232,16 @@ This confirms that the environment provides full visibility for SOC-level monito
 This section maps the observed events and SIEM detections to the corresponding MITRE ATT&CK techniques.  
 The purpose is to demonstrate how brute-force authentication activity aligns with adversarial behaviors documented in the ATT&CK framework.
 
- 6.1 Mapped MITRE Techniques
+ 6.1  SIEM MITRE mapping Techniques
 
 Wazuh automatically associated the failed authentication events with the following techniques:
 
-| Technique ID | Name | Description |
-|--------------|------|-------------|
-| "T1078" | Valid Accounts | Adversaries attempt to obtain or guess legitimate credentials to gain access. |
-| "T1531" | Account Access Manipulation | Repeated authentication attempts or manipulation of account access states. |
+| Technique ID | Name | Source |
+|--------------|------|--------|
+| T1078 | Valid Accounts | Wazuh rule mapping |
+| T1531 | Account Access Manipulation | Wazuh rule mapping |
 
-These mappings are consistent with brute-force behavior and are commonly used in SOC detection triage.
+These mappings correspond to the default MITRE associations defined by the Wazuh detection rules.
 
  6.2 Detection Logic (Windows Layer)
 
@@ -255,6 +255,14 @@ Key indicators:
 - Same target username across attempts
 
 These elements match the adversary behavior described in ATT&CK T1078.
+
+From an adversary behavior perspective, the simulated activity corresponds to:
+
+| Technique ID | Name | Reason |
+|--------------|------|--------|
+| T1110.001 | Password Guessing | Multiple authentication attempts against Active Directory accounts using different passwords. |
+
+Although Wazuh mapped the generated events to T1078 and T1531, the attack scenario itself aligns with MITRE ATT&CK technique T1110.001 (Password Guessing).
 
  6.3 Detection Logic (Domain Controller Layer)
 
